@@ -1,11 +1,17 @@
 import cv2
 import numpy as np
 import pygame
-from screeninfo import get_monitors
+from picamera2 import Picamera2
 
 PASSWORD = [4,3,4,5]
 progress = 0
 frame_count = 400
+picam = Picamera2()
+picam.preview_configuration.main.size=(1280, 720)
+picam.preview_configuration.main.format="RGB888"
+picam.preview_configuration.align()
+picam.configure("preview")
+picam.start()
 
 def find_mode(data):
     """
@@ -41,22 +47,14 @@ def security_system():
     global progress
     # Open a connection to the webcam (use 0 for the default camera)
     i = 0
-    cap = cv2.VideoCapture(0)
-
-    if not cap.isOpened():
-        print("Error: Could not open webcam.")
-        return
     
     interval_corners = []
     guess = []
 
     while True:
         # Capture frame-by-frame
-        ret, frame = cap.read()
-        
-        if not ret:
-            print("Error: Failed to capture frame.")
-            break
+        frame = picam.capture_array()
+
 
         if i%10 == 0:
             # Convert the frame to grayscale
@@ -104,7 +102,7 @@ def security_system():
                         break
                     else:
                         guess = []
-                        print("Incorrect password gilipoyas")
+                        print("Incorrect password")
 
             # Display the shape on the frame
             cv2.putText(
@@ -125,11 +123,9 @@ def security_system():
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
-    # Release the webcam and close all OpenCV windows
-    cap.release()
     cv2.destroyAllWindows()
 
-security_system()
+#security_system()
 
 pygame.init()
 
@@ -141,9 +137,6 @@ pygame.display.set_caption("Click to Paint")
 
 running = True
 mouse_pressed = False
-
-# Initialize the webcam
-cap = cv2.VideoCapture(0)  # Use 0 for webcam or specify a video file path
 
 # Create Background Subtractor using Gaussian Mixture Model (GMM)
 bg_subtractor = cv2.createBackgroundSubtractorMOG2(detectShadows=True)
@@ -160,16 +153,13 @@ kalman.errorCovPost = np.eye(4, dtype=np.float32) * 1  # Initial estimation erro
 # Initialize the state vector (x, y, delta_x, delta_y)
 kalman.statePost = np.zeros((4, 1), dtype=np.float32)
 
-screen_width = get_monitors()[0].width
-screen_heigh = get_monitors()[0].height
+screen_width = 1920
+screen_heigh = 1080
 prev_point = None
 
 while True:
-    ret, frame = cap.read()
-    
-    if not ret:
-        print("Failed to capture image")
-        break
+    frame = picam.capture_array()
+    frame = cv2.flip(frame, -1)
 
     # Apply background subtraction
     fg_mask = bg_subtractor.apply(frame)
@@ -247,5 +237,4 @@ while True:
         break
 
 # Release the capture and close windows
-cap.release()
 cv2.destroyAllWindows()

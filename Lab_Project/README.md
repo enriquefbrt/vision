@@ -1,50 +1,52 @@
-<a href="https://x.com/nearcyan/status/1706914605262684394">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/lab-project-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="assets/lab-project-light.png">
-    <img alt="Lab Session Image" src="assets/lab-project-light.png">
-  </picture>
-</a>
+# 📷 Camera Calibration, Pattern Detection, and Object Tracking on Raspberry Pi
+
+This project implements a camera calibration tool, pattern detection for a visual password system, and object tracking using OpenCV and Python on a Raspberry Pi with a PiCamera. The object tracker is integrated into a fun "paint" application, allowing you to draw with your hand or any object!
+
+## 🌟 Features
+
+### 1. 🛠️ Camera Calibration
+
+- Use chessboard images to calibrate the camera and remove distortion.
+- Computes camera matrix and distortion coefficients.
+
+### 2. 🎨 Pattern Detection (Visual Password System)
+
+- Detects geometric shapes such as squares, rectangles, and circles.
+- Enables a "visual password" system where the user shows a sequence of shapes as the password.
+- Put each shape into the camera until the percentage reaches 100%, if the password is correct, you will move on.
+
+### 3. 🔠 Object Tracking with Paint Application
+
+- Tracks moving objects using:
+  - **Kalman Filter**: Predicts the motion of the object.
+  - **MOG (Mixture of Gaussians) Background Subtraction**: Isolates moving objects from the background.
+- Integrated into a "paint" application where you can draw on the screen by moving an object in front of the camera. Click left Mousebutton to draw.
+
+## 📊 Requirements
+
+To run this project, you will need the following:
+
+- A Raspberry Pi (tested on Raspberry Pi 3/4).
+- A PiCamera.
+- Python 3 installed on the Raspberry Pi.
+- OpenCV library.
+- Picamera module.
+
+## ✨ Notes
+
+- Ensure good lighting conditions for accurate pattern detection and object tracking.
+- Calibrate the camera before running other scripts for better accuracy.
 
 
-**Welcome to the Lab Project of Computer *Vision I* at Comillas ICAI**. Here, you will find all the necessary files to start your project 💻📷
+## 📚 Contributions
+
+Contributions, issues, and feature requests are welcome! Feel free to fork this repository and submit a pull request.
+
+## 🙏 Acknowledgments
+
+- OpenCV documentation and tutorials for computer vision techniques.
+- The Raspberry Pi Foundation for providing affordable and versatile computing platforms.
 
 
-## Resources (WIP 🛠️)
 
-This laboratory session contains the following:
-
-- 📄 **Guide**: A ``PDF`` guide with instructions to complete the session (currently only available in Spanish).
-- 💻 **Script**: a ``.ipynb`` or ``.py`` file to complete.
-- 🎞️ **Data**: A folder containing images to process.
-- 📝 **Template**: A folder with a ``latex`` template used to generate the guide. You can reuse it to write your report.
-- 🧩 **Assets**: Files to style or improve documentation.
-- 📖 **README**: With links to motivate the session or to introduce the theory concepts.
-
-The folder lab session folder is structured as follows:
-
-```bash
-.
-├── guide.pdf
-├── src
-│   ├── lab_session.ipynb
-│   ├── lab_session.py
-│   └── ...
-├── data
-│   ├── image1.png
-│   ├── image2.png
-│   └── ...
-├── assets
-├── template
-└── README
-```
-
-## Get ready 🤓 (WIP 🛠️)
-If you're not enrolled or don't have access to the theory, or just want a refresher, check out the resources below before starting the lab.
-
-
-<h2 align="center" style="margin-bottom: 0px;">Here we go: Lab Project!</h2>
-<p align="center">
-  <img src="https://i.giphy.com/media/3orif60PUpLFuG4Sru/giphy.gif" width="300" style="margin-bottom: 0px;" />
-</p>
-<h3 align="center" style="margin-top: 0px;"> Hint: Don't be like Homer</h3>
+Happy painting! 🚀

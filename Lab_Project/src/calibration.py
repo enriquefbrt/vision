@@ -39,7 +39,7 @@ imgs_corners = [cv2.drawChessboardCorners(img, (7, 7), cor[1], cor[0]) for img, 
 
 for i, img in enumerate(imgs_corners):    
 	show_image(img)
-	write_image(i, img, 'Corners detected')
+	write_image(i, img, 'corners_detected')
 	
 chessboard_points = [get_chessboard_points((7, 7), 30, 30)] * len(imgs_gray)
 	
